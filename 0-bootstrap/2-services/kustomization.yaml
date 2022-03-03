@@ -22,8 +22,6 @@ resources:
  # Secrets Managment
  - argocd/instances/sealed-secrets.yaml
  - argocd/operator/external-secrets.yaml
- - argocd/instances/external-secrets.yaml
-
 
  # CICD
  #- argocd/operators/grafana-operator.yaml
@@ -39,25 +37,25 @@ resources:
  #- argocd/instances/openshift-service-mesh-instance.yaml
 
  # MultiCloud Management / Red Hat Advanced Cluster Management
- - argocd/operators/openshift-acm.yaml
- - argocd/instances/openshift-acm-instance.yaml
- - argocd/instances/openshift-acm-observability-instance.yaml
+# - argocd/operators/openshift-acm.yaml
+# - argocd/instances/openshift-acm-instance.yaml
+# - argocd/instances/openshift-acm-observability-instance.yaml
  #- argocd/operators/ibm-cp4mcm-operator.yaml
  #- argocd/instances/ibm-cp4mcm-instance.yaml
 #  - argocd/operators/ibm-infra-automation-operator.yaml
 #  - argocd/instances/ibm-infra-automation-instance.yaml
 
  # Ansible Automation Platform
- - argocd/operators/ansible-automation-platform-operator.yaml
- - argocd/instances/ansible-automation-platform-instance.yaml
+# - argocd/operators/ansible-automation-platform-operator.yaml
+# - argocd/instances/ansible-automation-platform-instance.yaml
 
  # OpenShift Virtualization (Can be used to host instana instance)
  #- argocd/operators/openshift-virtualization.yaml
  #- argocd/instances/openshift-virtualization-instance.yaml
 
  # OpenShift Advanced Cluster Security (aka Stackrox)
- - argocd/operators/openshift-acs-operator.yaml
- - argocd/instances/openshift-acs-instance.yaml
+# - argocd/operators/openshift-acs-operator.yaml
+# - argocd/instances/openshift-acs-instance.yaml
 
  # Observability
  #- argocd/operators/turbonomic.yaml
@@ -79,10 +77,10 @@ patches:
   patch: |-
     - op: add
       path: /spec/source/repoURL
-      value: ${GIT_BASEURL}/${GIT_ORG}/${GIT_GITOPS_SERVICES}
+      value: https://github.com/one-touch-provisioning/otp-gitops-services.git
     - op: add
       path: /spec/source/targetRevision
-      value: ${GIT_GITOPS_BRANCH}
+      value: master
 - target:
     group: argoproj.io
     kind: Application
@@ -90,7 +88,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/source/repoURL
-      value: ${HELM_REPOURL}
+      value: https://charts.cloudnativetoolkit.dev
 - target:
     name: ibm-automation-foundation-operator
   patch: |-
